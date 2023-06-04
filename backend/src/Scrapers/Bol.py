@@ -58,8 +58,6 @@ categorie_pages.append('https://www.bol.com/nl/nl/l/onderhoud-reparatie/17999/?p
 categorie_pages.append('https://www.bol.com/nl/nl/l/fietsen/17909/')
 categorie_pages.append('https://www.bol.com/nl/nl/l/fietsen/17909/?page=2')
 
-#Voedselhandelaar categorieen
-
 # Door de pagina's loopen en de links van de producten in de categorie schrapen en opslaan in de lijst
 for page in categorie_pages:
     url_category = page
