@@ -58,6 +58,11 @@ const App = () => {
         const parsedData = csv?.data;
         const columns = Object.keys(parsedData[0]);
         setData(parsedData);
+
+        // Destroy the previous chart instance if it exists
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
       
         // Extract unique years from the data
         const years = Array.from(new Set(parsedData.map((row) => row.Year)));
@@ -109,7 +114,7 @@ const App = () => {
       </label>
       <input onChange={handleFileChange} id="csvInput" name="file" type="file" />
       <div>
-        <button onClick={handleParse}>Parse</button>
+        <button onClick={handleParse}>Revenue</button>
       </div>
       <div style={{ marginTop: "3rem" }}>
         {error ? (
