@@ -4,3 +4,7 @@ import {Chart , registerables} from "chart.js";
 
 // Allowed extensions for input file
 const allowedExtensions = ["csv"];
+
+const ProductTypeChart = () => {
+    
+}
