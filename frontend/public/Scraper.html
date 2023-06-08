@@ -4,13 +4,18 @@
   <title>WordCount Upload</title>
 </head>
 <body>
+  <div id="header">
+    <a href="http://localhost:3000" style="float: right; margin-right: 5%; font-family: 'Poppins', sans-serif; font-size: 1.95rem; font-weight: 600; text-decoration: none; color: black;">Home </a>
+  </div>
+  
   <h1>WordCount Upload</h1>
 
   <input type="file" id="csv-upload" accept=".csv" multiple>
-
+  
   <div id="chart-container">
     <canvas id="column-chart"></canvas>
   </div>
+  <script src="/Header/Header.js" type="text/jsx"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>

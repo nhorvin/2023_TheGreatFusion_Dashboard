@@ -461,9 +461,9 @@ const Dashboard = () => {
           error
         ) : (
           <>
-            <canvas id="chart" style={{ maxWidth: "45%" , maxHeight: "1200px", minHeight: "1200px" }}></canvas>
+            <canvas className="canvas1" id="chart" style={{ maxWidth: "45%" , maxHeight: "1200px", minHeight: "1200px" }}></canvas>
             {/* <canvas id="chartProductSoldYear" style={{ maxWidth: "45%", maxHeight: "1200px", minHeight: "1200px"}}></canvas> */}
-            <canvas id="chartByMonth" style={{ maxWidth: "45%", maxHeight: "1200px" }}></canvas>
+            <canvas className="canvas2" id="chartByMonth" style={{ maxWidth: "45%", maxHeight: "1200px" }}></canvas>
             
           </>
         )}

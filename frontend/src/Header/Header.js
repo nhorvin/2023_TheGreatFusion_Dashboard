@@ -16,19 +16,9 @@ const routeChange = () =>{
         <div className="header-basic">
             <header>
                 <ul className="list-inline">
-                    
-                    {/* <div className='logo' onClick={routeChange}></div>
-                    <div className='laak' ><HeadItem text="LAAK"  /></div>
-                    <div className='lijn'><HeadItem text="____________________"/></div>
-                    <div className='theater'><HeadItem  text="THEATER" /></div> */}
-                    
-                    
                     <div className='basic'>
-                        <HeadItem link="/" text="Home" />
-                        <HeadItem link="/Trends" text="Trends" />
-
+                        <HeadItem link="/Scraper.html" text="Trends" />
                     </div>
-                    
                 </ul>
             </header>
         </div>

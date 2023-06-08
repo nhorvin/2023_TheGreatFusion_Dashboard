@@ -1,5 +1,5 @@
 :root {
-    --adoXiketic: #1B1725;
+    --adoGrey: #F6F1F1;
     --adoLightGreen: #90C578;
     --adoMediumPurple: #8675FE;
     --adoRedCrayola: #FD024F;
@@ -7,6 +7,10 @@
   
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,900&display=swap');
 
+body {
+    background-color: var(--adoGrey);
+   
+  }
 
 .list-inline {
     list-style-type: none;
@@ -74,11 +78,16 @@
   }
 
   .csv input{
-    background-color: var(--adoMediumPurple) ;
+    /* background-color: var(--adoMediumPurple) ; */
     border-style: none;
     font-family: 'Poppins', sans-serif;
     font-style: 200;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     border-radius: 15px;
+    margin-bottom: 10px;
     margin-left: 10px;
+  }
+
+  .canvas1 {
+    
   }

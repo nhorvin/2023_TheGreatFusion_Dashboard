@@ -3,9 +3,11 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import { Route } from 'react-router';
 
 
+
 import BaseLayout from './BaseLayout';
 import './custom.css';
 import Home from './Dashboard';
+//import Scraper from './Scraper';
 
 
 const App = () => {
@@ -16,7 +18,8 @@ const App = () => {
           {/* De index element moet naar de homepage als we die hebben */}
           <Route path="/" element={<BaseLayout />}>
             <Route index element={<Home />} />
-            {/* <Route element={<Login />} path="/scraper" /> */}
+            {/* <Route path="/Scraper" element={<Scraper />} /> */}
+            
   
           </Route>
         </Routes>
