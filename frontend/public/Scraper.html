@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WordCount Upload</title>
+</head>
+<body>
+  <h1>WordCount Upload</h1>
+
+  <input type="file" id="csv-upload" accept=".csv" multiple>
+
+  <div id="chart-container">
+    <canvas id="column-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Functie om de geüploade CSV-bestanden te verwerken
+    function handleCSVUpload(event) {
+      const files = event.target.files;
+      const csvFiles = [];
+
+      // Itereer over de geüploade bestanden
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        // Lees de inhoud van elk bestand
+        reader.onload = function (e) {
+          const csvContent = e.target.result;
+          const lines = csvContent.split('\n');
+
+          // Verwerk de inhoud van elk CSV-bestand
+          for (let j = 1; j < lines.length; j++) {
+            const line = lines[j].trim();
+            if (line !== '') {
+              const columns = line.split(',');
+              const word = columns[0].trim();
+              const count = parseInt(columns[1].trim());
+
+              // Voeg de woordtelling toe aan de lijst
+              csvFiles.push({ word, count });
+            }
+          }
+
+          // Toon de woordtellingen in het kolomdiagram
+          displayColumnChart(csvFiles);
+        };
+
+        // Lees het bestand als een tekstbestand
+        reader.readAsText(file);
+      }
+    }
+
+    // Functie om het kolomdiagram te tonen
+    function displayColumnChart(data) {
+      const labels = data.map(item => item.word);
+      const counts = data.map(item => item.count);
+
+      const ctx = document.getElementById('column-chart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Word Count',
+            data: counts,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    // Event listener voor het bestandsupload-element
+    const fileInput = document.getElementById('csv-upload');
+    fileInput.addEventListener('change', handleCSVUpload);
+  </script>
+</body>
+</html>
