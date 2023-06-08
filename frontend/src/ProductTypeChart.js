@@ -49,6 +49,15 @@ const ProductTypeChart = () => {
         }
     };
 
-    
+    // ---------------- Return as HTML items ----------------  
+    return (
+        <div>
+          <input type="file" onChange={handleFileChange} />
+          <button onClick={handleFileUpload}>Product Type Sales</button>
+          {chartData.labels && (
+            <Line data={chartData} options={chartOptions} />
+          )}
+        </div>
+      );
     
 };
