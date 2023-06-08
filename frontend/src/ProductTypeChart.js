@@ -61,3 +61,5 @@ const ProductTypeChart = () => {
       );
     
 };
+
+export default ProductTypeChart;
