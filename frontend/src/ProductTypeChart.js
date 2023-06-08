@@ -73,7 +73,6 @@ const ProductTypeChart = () => {
     // ---------------- Return as HTML items ----------------  
     return (
     <div className="producttype">
-    <h1>Grafiek</h1>
       <div className="chart-producttype">
         <input type="file" onChange={handleFileChange} />
         <button onClick={handleFileUpload}>Grafiek genereren</button>
