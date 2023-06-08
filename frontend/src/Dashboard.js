@@ -411,6 +411,7 @@ const Dashboard = () => {
               datasets: datasetsByMonth,
             },
             options: {
+                responsive: true,
               scales: {
                 y: {
                   beginAtZero: true,
@@ -442,6 +443,101 @@ const Dashboard = () => {
     // Read the file as text
     reader.readAsText(file);
   };
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const handleProductKlantLand = () => {
+    Chart.register(...registerables);
+    // If the user clicks the parse button without
+    // a file, we show an error
+    if (!file) return setError("Enter a valid file");
+
+    // Initialize a reader which allows the user
+    // to read any file or blob.
+    const reader = new FileReader();
+
+    // Event listener on the reader when the file
+    // loads, we parse it and set the data.
+    reader.onload = ({ target }) => {
+      const csv = Papa.parse(target.result, { header: true });
+      const parsedData = csv?.data;
+      const columns = Object.keys(parsedData[0]);
+      setData(parsedData);
+
+    
+
+    const countries = Array.from(new Set(parsedData.map((row) => row.retailer_country)));
+
+    // Calculate the count of products made for each country
+    const productCountByCountry = countries.map((country) => {
+      const filteredData = parsedData.filter((row) => row.retailer_country === country);
+      const productCount = filteredData.length;
+      return productCount;
+    });
+  
+    
+   
+    // Create a new chart instance
+    const ctx = document.getElementById("chart").getContext("2d");
+    if (chartRef.current) {
+        chartRef.current.destroy();
+      }
+      if (chartByMonthRef.current) {
+        chartByMonthRef.current.destroy();
+      }
+
+    chartRef.current = new Chart(ctx, {
+        maxWidth: 50,
+        type: "bar",
+        data: {
+     
+        labels: countries,
+        datasets: [
+          {
+            
+            label: "Product Count",
+            data: productCountByCountry,
+            backgroundColor: "rgba(54, 162, 235, 0.5)",
+            borderColor: "rgba(54, 162, 235, 1)",
+            borderWidth: 1,
+            
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Total Products Sold',
+              },
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Country',
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Products Sold by Country",
+              font: {
+                size: 20, // Increase the font size for the title
+              },
+            },
+          },
+      },
+    });
+
+    ctx.canvas.onclick = (evt) => {}
+
+    // Set the new chart instance to the state
+  };
+  reader.readAsText(file);
+
+};
 
   return (
     <div className="dashboard">
@@ -455,15 +551,17 @@ const Dashboard = () => {
       <div className="mvButtons">
         <button onClick={handleRevenue}>Revenue</button>
         <button onClick={handleProductSold}>Products Sold</button>
+        <button id="b3" onClick={handleProductKlantLand}>Products Sold by Country</button>
       </div>
-      <div style={{ marginTop: "0rem", display: "flex", justifyContent: "space-between"}}>
+      <div id="chartcontainer" style={{ marginTop: "0rem", display: "flex", justifyContent: "space-between" }}>
         {error ? (
           error
         ) : (
           <>
-            <canvas className="canvas1" id="chart" style={{ maxWidth: "45%" , maxHeight: "1200px", minHeight: "1200px" }}></canvas>
+            <canvas className="canvas1" id="chart" style={{maxWidth: "45%" , maxHeight: "1200px", minHeight: "1200px" , margin: "10px"}}></canvas>
             {/* <canvas id="chartProductSoldYear" style={{ maxWidth: "45%", maxHeight: "1200px", minHeight: "1200px"}}></canvas> */}
-            <canvas className="canvas2" id="chartByMonth" style={{ maxWidth: "45%", maxHeight: "1200px" }}></canvas>
+            <canvas className="canvas2" id="chartByMonth" style={{maxWidth: "45%" , maxHeight: "1200px",minHeight: "1200px", margin: "10px" }}></canvas>
+            
             
           </>
         )}
