@@ -3,6 +3,7 @@
 Libraries installs:
 * cd fronted
 * npm install chart.js
+* npm install react-chartjs-2
 * npm install react-router-dom
 * npm install react-router
 
