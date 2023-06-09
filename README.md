@@ -10,3 +10,9 @@ Opstarten:
 * cd frontend
 * npm start
 
+Nieuwe database:
+TheGreatFusion.csv
+
+Webscraper wordcount resultaten:
+/backend/src/Scrapers/Data
+/WordCounts/
