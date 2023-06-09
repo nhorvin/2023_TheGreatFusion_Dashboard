@@ -533,6 +533,76 @@ const Dashboard = () => {
 
     ctx.canvas.onclick = (evt) => {}
 
+    const filteredData = parsedData.filter((row) => row.retailer_company !== "");
+
+    // Extract unique company names from the filtered data
+    const companies = Array.from(new Set(filteredData.map((row) => row.retailer_company)));
+
+    // Calculate the amount of products sold for each company
+    const productCountByCompany = companies.map((company) => {
+      const filteredCompanyData = filteredData.filter((row) => row.retailer_company === company);
+      const productCount = filteredCompanyData.length;
+      return {
+        company,
+        productCount,
+      };
+    });
+  
+      // Sort the companies by product count in descending order
+      productCountByCompany.sort((a, b) => b.productCount - a.productCount);
+  
+      // Take only the top 20 companies
+      const top20Companies = productCountByCompany.slice(0, 20);
+  
+      // Extract the company names and product counts for the chart
+      const labels = top20Companies.map((company) => company.company);
+      const data = top20Companies.map((company) => company.productCount);
+  
+      // Create a new chart instance
+      const ctx2 = document.getElementById("chartByMonth").getContext("2d");
+      chartByMonthRef.current = new Chart(ctx2, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Product Count",
+              data: data,
+              backgroundColor: "rgba(54, 162, 235, 0.5)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Total Products Sold',
+              },
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Retailer',
+              },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: "Top 20 Products Sold by Retailer",
+              font: {
+                size: 20, // Increase the font size for the title
+              },
+            },
+          },
+        },
+      });
+  
+
     // Set the new chart instance to the state
   };
   reader.readAsText(file);
@@ -551,16 +621,16 @@ const Dashboard = () => {
       <div className="mvButtons">
         <button onClick={handleRevenue}>Revenue</button>
         <button onClick={handleProductSold}>Products Sold</button>
-        <button id="b3" onClick={handleProductKlantLand}>Products Sold by Country</button>
+        <button id="b3" onClick={handleProductKlantLand}>Products Sold by Country & Retailer</button>
       </div>
       <div id="chartcontainer" style={{ marginTop: "0rem", display: "flex", justifyContent: "space-between" }}>
         {error ? (
           error
         ) : (
           <>
-            <canvas className="canvas1" id="chart" style={{maxWidth: "45%" , maxHeight: "1200px", minHeight: "1200px" , margin: "10px"}}></canvas>
+            <canvas className="canvas1" id="chart" style={{maxWidth: "50%" , maxHeight: "1200px", minHeight: "1200px" , margin: "10px"}}></canvas>
             {/* <canvas id="chartProductSoldYear" style={{ maxWidth: "45%", maxHeight: "1200px", minHeight: "1200px"}}></canvas> */}
-            <canvas className="canvas2" id="chartByMonth" style={{maxWidth: "45%" , maxHeight: "1200px",minHeight: "1200px", margin: "10px" }}></canvas>
+            <canvas className="canvas2" id="chartByMonth" style={{maxWidth: "50%" , maxHeight: "1200px",minHeight: "1200px", margin: "10px" }}></canvas>
             
             
           </>
